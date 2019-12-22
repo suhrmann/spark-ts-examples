@@ -49,7 +49,7 @@ mvn package
 
 ### Running
 
-To submit one of the Java or Scala examples to a local Spark cluster, run the following command
+To submit one of the Java or Scala examples to a (local) Spark cluster, run the following command
 from the `jvm` directory:
 
     cd jvm
@@ -60,16 +60,15 @@ from the `jvm` directory:
     # Run Scala example ARIMA
     spark-submit --class com.cloudera.tsexamples.SingleSeriesARIMA target/spark-ts-examples-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 
-You can substitute any of the Scala ~~or Java~~ example classes as the value for the `--class`
-parameter.
+You can substitute any of the Scala ~~or Java~~ example classes as the value for the `--class` parameter.
 
-Use with Amazon EMR:
-It is not possible to load data for EMR Spark from "local" filesystem of EC2. So you have to store the samples in an S3 bucket.
+Use with **Amazon EMR**: <br>
+It is not possible to load data for EMR Spark from "local" EC2 filesystem. So you have to store the samples in an S3 bucket.
 
-You have to do this only once for all EMR Cluster you create!
+You have to do this only once for all EMR Cluster you will create!
 
 Copy example data from folder ``spark-ts-examples/data`` **once** to S3 bucket ``Amazon S3/<S3 Bucket ID>/<path to your data>``.
-Then adjust the filepath in ``Stocks`` and  ``SingleSeriesARIMA`` to your S3 data!
+Then adjust the filepath in ``val EXAMPLE_DATA`` in ``spark-ts-examples/jvm/src/main/scala/com/cloudera/tsexamples/Stocks`` and  ``SingleSeriesARIMA`` to your S3 paths!
 
 ---------------
 
@@ -77,7 +76,7 @@ Then adjust the filepath in ``Stocks`` and  ``SingleSeriesARIMA`` to your S3 dat
 
 ~~To submit a Python example, run the following command from the `python` directory:~~
 
-~~spark-submit --driver-class-path PATH/TO/sparkts-0.3.0-jar-with-dependencies.jar Stocks.py~~~
+~~spark-submit --driver-class-path PATH/TO/sparkts-0.3.0-jar-with-dependencies.jar Stocks.py~~
 
 ~~The `--driver-class-path` parameter value must point to the Spark-TS JAR file, which can be
 downloaded from the spark-timeseries [Github repo](https://github.com/sryza/spark-timeseries).~~
