@@ -15,6 +15,10 @@ import org.apache.spark.sql.types._
  * data.
  */
 object Stocks {
+
+  val EXAMPLE_DATA = "../data/ticker.tsv"
+  // val EXAMPLE_DATA = "s3://<S3 Bucket ID>/<path to>/ticker.tsv"
+
   /**
    * Creates a Spark DataFrame of (timestamp, symbol, price) from a tab-separated file of stock
    * ticker data.
@@ -43,7 +47,7 @@ object Stocks {
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
 
-    val tickerObs = loadObservations(sqlContext, "../data/ticker.tsv")
+    val tickerObs = loadObservations(sqlContext, EXAMPLE_DATA)
 
     // Create an daily DateTimeIndex over August and September 2015
     val zone = ZoneId.systemDefault()
@@ -67,7 +71,7 @@ object Stocks {
 
     // Compute return rates
     val returnRates = filled.returnRates()
-    
+
     // Compute Durbin-Watson stats for each series
     val dwStats = returnRates.mapValues(TimeSeriesStatisticalTests.dwtest)
 
